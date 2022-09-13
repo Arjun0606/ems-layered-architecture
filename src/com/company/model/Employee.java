@@ -1,5 +1,7 @@
 package com.company.model;
 
+import java.util.Objects;
+
 public class Employee {
 	private int empId;
 	private String firstName;
@@ -59,6 +61,25 @@ public class Employee {
 
 	public void setSalary(double salary) {
 		this.salary = salary;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, empId, firstName, lastName, salary);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		return Objects.equals(email, other.email) && empId == other.empId && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(lastName, other.lastName)
+				&& Double.doubleToLongBits(salary) == Double.doubleToLongBits(other.salary);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.company.dao.EmployeeDAO;
 import com.company.dao.EmployeeDAOImpl;
+import com.company.exceptions.EmployeeAlreadyExistsException;
 import com.company.exceptions.EmployeeNotFoundException;
 import com.company.model.Employee;
 
@@ -17,7 +18,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<Employee> addEmployee(int empId, String fn, String ln, String email, double salary) {
+	public List<Employee> addEmployee(int empId, String fn, String ln, String email, double salary) throws EmployeeAlreadyExistsException {
 		Employee employee = new Employee(empId, fn, ln, email, salary);
 
 		employeeDAO.add(employee);

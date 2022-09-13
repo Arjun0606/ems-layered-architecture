@@ -3,6 +3,7 @@ package com.company.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.company.exceptions.EmployeeAlreadyExistsException;
 import com.company.exceptions.EmployeeNotFoundException;
 import com.company.model.Employee;
 
@@ -17,7 +18,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public void add(Employee employee) {
+	public void add(Employee employee) throws EmployeeAlreadyExistsException {
+		boolean result = employees.contains(employee);
+		if (result)
+			throw new EmployeeAlreadyExistsException(employee.getFirstName() + " Already Exsits in the System");
 		employees.add(employee);
 	}
 

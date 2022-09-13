@@ -3,6 +3,7 @@ package com.company.ui;
 import java.util.List;
 import java.util.Scanner;
 
+import com.company.exceptions.EmployeeAlreadyExistsException;
 import com.company.exceptions.EmployeeNotFoundException;
 import com.company.model.Employee;
 import com.company.service.EmployeeService;
@@ -36,9 +37,15 @@ public class CliMain {
 
 			case 2:
 				System.out.println("Enter empID, FirstName, LastName, Email, Salary");
-				List<Employee> emps = service.addEmployee(scanner.nextInt(), scanner.next(), scanner.next(),
-						scanner.next(), scanner.nextDouble());
-				emps.forEach(System.out::println);
+				List<Employee> emps = null;
+				try {
+					emps = service.addEmployee(scanner.nextInt(), scanner.next(), scanner.next(), scanner.next(),
+							scanner.nextDouble());
+					emps.forEach(System.out::println);
+				} catch (EmployeeAlreadyExistsException e2) {
+					System.out.println(e2.getMessage());
+				}
+				
 				break;
 
 			case 3:
